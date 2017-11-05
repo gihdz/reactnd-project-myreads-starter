@@ -15,14 +15,23 @@ class BooksApp extends React.Component {
     books: []
   };
   componentDidMount() {
+    this.getBooks();
+  }
+  getBooks() {
     let { books } = this.state;
     BooksAPI.getAll().then(res => {
       console.log(res);
-      books = books.concat(res);
+      books = res;
       this.setState({ books });
     });
   }
-
+  changeBookToShelf(bookId, shelf) {
+    console.log(bookId, shelf);
+    BooksAPI.update({ id: bookId }, shelf).then(res => {
+      console.log(res);
+      this.getBooks();
+    });
+  }
   render() {
     return (
       <div className="app">
@@ -52,7 +61,10 @@ class BooksApp extends React.Component {
             </div>
           </div>
         ) : (
-          <Bookshelfs books={this.state.books} />
+          <Bookshelfs
+            books={this.state.books}
+            changeBookToShelf={this.changeBookToShelf.bind(this)}
+          />
         )}
       </div>
     );

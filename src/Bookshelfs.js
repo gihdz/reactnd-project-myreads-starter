@@ -6,13 +6,31 @@ class Bookshelfs extends React.Component {
     const books = this.props.books;
     const currentlyReading = books
       .filter(r => r.shelf === 'currentlyReading')
-      .map(r => <Book key={r.id} book={r} />);
+      .map(r => (
+        <Book
+          key={r.id}
+          book={r}
+          changeBookToShelf={this.props.changeBookToShelf}
+        />
+      ));
     const wantToRead = books
       .filter(r => r.shelf === 'wantToRead')
-      .map(r => <Book key={r.id} book={r} />);
+      .map(r => (
+        <Book
+          key={r.id}
+          book={r}
+          changeBookToShelf={this.props.changeBookToShelf}
+        />
+      ));
     const read = books
       .filter(r => r.shelf === 'read')
-      .map(r => <Book key={r.id} book={r} />);
+      .map(r => (
+        <Book
+          key={r.id}
+          book={r}
+          changeBookToShelf={this.props.changeBookToShelf}
+        />
+      ));
     return (
       <div className="list-books">
         <div className="list-books-title">
