@@ -5,6 +5,7 @@ import Book from './Book';
 import { NotificationManager } from 'react-notifications';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import PropTypes from 'prop-types';
 
 class SearchBookForm extends React.Component {
   constructor(props) {
@@ -86,5 +87,8 @@ class SearchBookForm extends React.Component {
     );
   }
 }
-
+SearchBookForm.propTypes = {
+  myBooks: PropTypes.array.isRequired,
+  changeBookToShelf: PropTypes.func.isRequired
+};
 export default SearchBookForm;

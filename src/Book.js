@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 class Book extends React.Component {
   changeBookShelf(bookId) {
     this.props.changeBookToShelf(bookId, this.ddlShelfChanger.value);
@@ -46,5 +47,8 @@ class Book extends React.Component {
     );
   }
 }
-
+Book.propTypes = {
+  book: PropTypes.object.isRequired,
+  changeBookToShelf: PropTypes.func.isRequired
+};
 export default Book;
