@@ -1,5 +1,5 @@
 {
-  "homepage": "https://gihdz.github.io/reactnd-project-myreads-starter",
+  "homepage": "https://gihdz.github.io/reactnd-project-myreads-starter/",
   "dependencies": {
     "gh-pages": "^1.0.0",
     "nprogress": "^0.2.0",
