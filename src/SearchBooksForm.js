@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import { NotificationManager } from 'react-notifications';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 class SearchBookForm extends React.Component {
   constructor(props) {
@@ -23,14 +25,17 @@ class SearchBookForm extends React.Component {
     timeOutId = setTimeout(() => {
       const { query } = this.state;
       this.searchBooks(query);
-    }, 1500);
+    }, 1000);
     this.setState({ timeOutId });
   }
   searchBooks(query) {
+    if (!query) return;
+    NProgress.start();
     console.log('query: ', query);
     BooksAPI.search(query).then(res => {
       const books = Array.isArray(res) ? res : res.items;
       if (books.length === 0) NotificationManager.warning('No search results!');
+      NProgress.done();
       this.setState({ books });
     });
   }
