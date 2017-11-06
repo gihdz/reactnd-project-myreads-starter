@@ -4,6 +4,11 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 import Bookshelfs from './Bookshelfs';
 import SearchBookForm from './SearchBooksForm';
+import {
+  NotificationContainer,
+  NotificationManager
+} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class BooksApp extends React.Component {
   state = {
@@ -22,10 +27,13 @@ class BooksApp extends React.Component {
   }
   changeBookToShelf(bookId, shelf) {
     console.log(bookId, shelf);
-    BooksAPI.update({ id: bookId }, shelf).then(res => {
-      console.log(res);
-      this.getBooks();
-    });
+    BooksAPI.update({ id: bookId }, shelf)
+      .then(res => {
+        console.log(res);
+        NotificationManager.info('Success!');
+        this.getBooks();
+      })
+      .catch(err => NotificationManager.danger('Request error!'));
   }
   render() {
     return (
@@ -40,7 +48,16 @@ class BooksApp extends React.Component {
             />
           )}
         />
-        <Route path="/search" component={SearchBookForm} />
+        <Route
+          path="/search"
+          render={() => (
+            <SearchBookForm
+              myBooks={this.state.books}
+              changeBookToShelf={this.changeBookToShelf.bind(this)}
+            />
+          )}
+        />
+        <NotificationContainer />
       </div>
     );
   }

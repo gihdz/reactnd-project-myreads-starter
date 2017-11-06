@@ -6,6 +6,11 @@ class Book extends React.Component {
   render() {
     const { book } = this.props;
     const imageUrl = `url(${book.imageLinks.smallThumbnail})`;
+    const authors = book.authors ? book.authors.join(', ') : '';
+    const shelf = book.shelf ? book.shelf : 'none';
+    const shelfChangerClass = book.shelf
+      ? 'book-shelf-changer'
+      : 'book-shelf-changer not-in-shelf';
     return (
       <li>
         <div className="book">
@@ -18,10 +23,10 @@ class Book extends React.Component {
                 backgroundImage: imageUrl
               }}
             />
-            <div className="book-shelf-changer">
+            <div className={shelfChangerClass}>
               <select
                 ref={input => (this.ddlShelfChanger = input)}
-                value={book.shelf}
+                value={shelf}
                 onChange={this.changeBookShelf.bind(this, book.id)}
               >
                 <option value="none" disabled>
@@ -35,7 +40,7 @@ class Book extends React.Component {
             </div>
           </div>
           <div className="book-title">{book.title}</div>
-          <div className="book-authors">{book.authors.join(', ')}</div>
+          <div className="book-authors">{authors}</div>
         </div>
       </li>
     );
