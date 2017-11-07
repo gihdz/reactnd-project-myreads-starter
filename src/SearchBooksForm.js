@@ -4,7 +4,6 @@ import * as BooksAPI from './BooksAPI';
 import Book from './Book';
 import { NotificationManager } from 'react-notifications';
 import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
 import PropTypes from 'prop-types';
 
 class SearchBookForm extends React.Component {

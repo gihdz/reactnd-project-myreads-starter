@@ -9,6 +9,8 @@ import {
   NotificationManager
 } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 
 class BooksApp extends React.Component {
   state = {
@@ -19,18 +21,22 @@ class BooksApp extends React.Component {
   }
   getBooks() {
     let { books } = this.state;
+    NProgress.start();
     BooksAPI.getAll().then(res => {
       console.log(res);
       books = res;
+      NProgress.done();
       this.setState({ books });
     });
   }
   changeBookToShelf(bookId, shelf) {
     console.log(bookId, shelf);
+    NProgress.start();
     BooksAPI.update({ id: bookId }, shelf)
       .then(res => {
         console.log(res);
         NotificationManager.info('Success!');
+        NProgress.done();
         this.getBooks();
       })
       .catch(err => NotificationManager.danger('Request error!'));
